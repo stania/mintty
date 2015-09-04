@@ -573,14 +573,11 @@ win_text(int x, int y, wchar *text, int len, cattr attr, int lattr)
       bgi ^= 2;     // (BOLD_)?FG_COLOUR_I <-> (BOLD_)?BG_COLOUR_I
   }
   if (attr.attr & ATTR_BOLD && cfg.bold_as_colour) {
+    apply_shadow = false;
     if (fgi < 8) {
-      if (colours[fgi] != colours[fgi | 8])
-        apply_shadow = false;
       fgi |= 8;     // (BLACK|...|WHITE)_I -> BOLD_(BLACK|...|WHITE)_I
     }
     else if (fgi >= 256 && !cfg.bold_as_font) {
-      if (colours[fgi] != colours[fgi | 1])
-        apply_shadow = false;
       fgi |= 1;     // (FG|BG)_COLOUR_I -> BOLD_(FG|BG)_COLOUR_I
     }
   }
